@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"> </script>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Jost', sans-serif;
+        background-image: url("https://i.pinimg.com/564x/cd/59/96/cd599629ab5c6ad0fdbaba54318a6b25.jpg");
+    }
+
+    .login {
+        background-image: url("https://i.pinimg.com/564x/96/ff/de/96ffde67a848bdef58e1721b7206c041.jpg");
+        width: 300px;
+        height: 400px;
+        padding: 50px;
+        margin: 20px;
+        justify-content: center;
+        box-shadow: 3px 10px 30px 5px #bcbcb9a5;
+        border-radius:  20px 100px 20px 20px;
+    }
+
+    input {
+        font-size: 150%;
+        font-family: 'Times New Roman', Times, serif;
+        margin-bottom: 10%;
+        border: 0px;
+        border-radius: 0px 20px 2px 10px;
+    }
+
+    label {
+        font-size: 300%;
+        font-family: 'Times New Roman', Times, serif;
+        color: rgb(26, 62, 11);
+        justify-content: center;
+        display: flex;
+        margin: 30px;
+        font-weight: 900;
+    }
+
+    button {
+        width: 60%;
+        height: 40px;
+        margin: 10px auto;
+        justify-content: center;
+        display: block;
+        color: #fff;
+        background: #396428;
+        font-size: 22px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        transition: .2s ease-in;
+        cursor: pointer;
+    }
+    button:hover {
+		background: rgba(158, 184, 132, 1);
+	}
+    .logchk{
+        font-size: 18px;
+        font-family: 'Times New Roman', Times, serif;
+        margin: 0%;
+        color: rgba(40, 75, 14, 0.595);
+    }
+</style>
+
+<body>
+    <div class="login">
+        <center><label>LOGIN!</label></center>
+        <input type="text" id="sname" placeholder="Username">
+        <input type="password" id="spwd" placeholder="Password">
+        <p class="logchk"><input id="log" type="checkbox">Keep me Logged in</p>
+        <button id="sub_btn">Login</button>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFXRlahqsia6qPBNkcBlzBNAjyWBvW2aA",
+            authDomain: "epics-5ffd2.firebaseapp.com",
+            databaseURL: "https://epics-5ffd2-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "epics-5ffd2",
+            storageBucket: "epics-5ffd2.appspot.com",
+            messagingSenderId: "266100996512",
+            appId: "1:266100996512:web:866fd38ee3db75ee930cc5",
+            measurementId: "G-NNBG2K82P1"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+        const db = getDatabase();
+
+        // signup refrences
+
+        const username = document.getElementById('sname');
+        const pass = document.getElementById('spwd');
+        const submit = document.getElementById('sub_btn');
+
+
+        //authentication
+
+        function AuthUser() {
+            const dbRef = ref(db);
+
+            get(child(dbRef, "Userlist/" + username.value)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    let dbpass = decpass(snapshot.val().Password);
+                    if (dbpass == pass.value) {
+                        login(snapshot.val());
+                    }
+
+                    else {
+                        alert("Account does not exists!");
+                    }
+                }
+
+                else {
+                    alert("Username or password is invalid!");
+                }
+            });
+        }
+        //decryption
+        function decpass(dbpass) {
+            var pass12 = CryptoJS.AES.decrypt(dbpass, pass.value).toString(CryptoJS.enc.Utf8);
+            return pass12;
+        }
+        
+        //login
+        function login(user) {
+            let keeploggedin = document.getElementById('log').checked;
+
+            if (!keeploggedin) {
+                sessionStorage.setItem('user', JSON.stringify(user));
+                window.location = "index.html";
+            }
+            else {
+                localStorage.setItem('keeploggedin', 'yes');
+                localStorage.setItem('user', JSON.stringify(user));
+                window.location = "index.html";
+            }
+        }
+        //assign event
+
+        submit.addEventListener('click', AuthUser);
+
+
+
+    </script>
+</body>
+
+</html>

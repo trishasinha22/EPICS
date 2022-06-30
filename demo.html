@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    label {
+        display: inline-block;
+        width: 500px;
+    }
+</style>
+
+<body>
+    <label>DeviceId</label><input type="text" id="did">
+    <label>Temp</label><input type="text" id="temp">
+    <label>humidity</label><input type="text" id="humid">
+    <label>phvalue</label><input type="text" id="ph">
+    <label>Flow</label><input type="text" id="flow">
+    <label>LUX</label><input type="text" id="lux">
+    <label>Pump</label><input type="text" id="pump">
+
+    <div>
+        <button id="Insbtn">Insert</button>
+        <button id="Selbtn">Select</button>
+        <button id="Updbtn">Update</button>
+        <button id="Delbtn">Delete</button>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGCJiXLKRcxR5c9B3zVCn_zy0jMWCu7eU",
+            authDomain: "getalltb.firebaseapp.com",
+            databaseURL: "https://getalltb-default-rtdb.firebaseio.com",
+            projectId: "getalltb",
+            storageBucket: "getalltb.appspot.com",
+            messagingSenderId: "431020603773",
+            appId: "1:431020603773:web:9ba481efc3d1d257b8b414"
+        };
+
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, ref, get, set, child, update, remove }
+            from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+        const db = getDatabase();
+        //----------references---------------
+
+        var devid = document.getElementById("did");
+        var temp = document.getElementById("temp");
+        var humidity = document.getElementById("humid");
+        var phvalue = document.getElementById("ph");
+        var flow = document.getElementById("flow");
+        var Lux = document.getElementById("lux");
+        var Pump = document.getElementById("pump");
+
+        var insbtn = document.getElementById("Insbtn");
+        var selbtn = document.getElementById("Selbtn");
+        var updbtn = document.getElementById("Updbtn");
+        var delbtn = document.getElementById("Delbtn");
+
+        //---------insert data ------------------
+
+        function InsertData() {
+            set(ref(db, "monitor/" + devid.value), {
+                deviceId: devid.value,
+                Temp: temp.value,
+                Humidity: humidity.value,
+                Phvalue: phvalue.value,
+                Lux:Lux.value,
+                Flow: flow.value,
+                Pump: Pump.value
+            })
+                .then(() => {
+                    alert("data stored successfully");
+                })
+                .catch((error) => {
+                    alert("unsuccessful, error" + error);
+                });
+        }
+
+        //----------select/retrieve data----------
+
+        function SelectData() {
+            const dbref = ref(db);
+
+            get(child(dbref, "monitor/" + devid.value)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    temp.value = snapshot.val().Temp;
+                    humidity.value = snapshot.val().Humidity;
+                    phvalue.value = snapshot.val().Phvalue;
+                    flow.value = snapshot.val().Flow;
+                    Lux.value = snapshot.val().Lux;
+                    Pump.value = snapshot.val().Pump;
+                }
+                else {
+                    alert("No data found");
+                }
+
+            })
+                .catch((error) => {
+                    alert("unsuccessful, error" + error);
+                });
+        }
+
+        //--------update data---------------
+
+        function UpdateData() {
+            update(ref(db, "monitor/" + devid.value), {
+                Temp: temp.value,
+                Humidity: humidity.value,
+                Flow: flow.value
+                
+            })
+                .then(() => {
+                    alert("data updated successfully");
+                })
+                .catch((error) => {
+                    alert("unsuccessful, error" + error);
+                });
+        }
+
+        //--------delete data---------------
+
+        function DeleteData() {
+            remove(ref(db, "monitor/" + devid.value))
+                .then(() => {
+                    alert("data removed successfully");
+                })
+                .catch((error) => {
+                    alert("unsuccessful, error" + error);
+                });
+        }
+        //----------add event to buttons---------
+
+        insbtn.addEventListener('click', InsertData);
+        selbtn.addEventListener('click', SelectData);
+        updbtn.addEventListener('click', UpdateData);
+        delbtn.addEventListener('click', DeleteData);
+
+
+
+    </script>
+</body>
+
+</html>

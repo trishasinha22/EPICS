@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sonsie+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
+    <title>Homepage</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Playfair Display', serif;
+        background-image: url(https://cutewallpaper.org/22/green-leaf-aesthetic-wallpapers/1667722022.jpg);
+        background-size: cover;
+    }
+
+    /*nav bar */
+    .topnav {
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    .topnav a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .topnav a.active {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    .topnav .icon {
+        display: none;
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child) {
+            display: none;
+        }
+
+        .topnav a.icon {
+            float: right;
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav.responsive {
+            position: relative;
+        }
+
+        .topnav.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+    }
+
+    /*-----------------*/
+
+    /*head image  */
+    .back {
+        width: 98%;
+        height: 650px;
+        filter: blur(5px);
+        margin: 1%;
+    }
+
+    .bg {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .text1 {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 600%;
+        font-family: 'Sonsie One', cursive;
+    }
+
+    .text {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 300%;
+        font-weight: 800;
+    }
+
+    /*----------------*/
+    /*box   */
+
+    .box {
+        background-color: rgba(134, 238, 16, 0.664);
+        width: 1000px;
+        padding: 30px;
+        display: flex;
+        margin: 5px;
+        opacity: 0.9;
+       
+    }
+
+    .box1 {
+        background-color: rgb(243, 230, 230);
+        width: 1000px;
+        padding: 30px;
+        display: flex;
+        margin: 5px;
+        opacity: 0.9;
+    }
+
+    @media screen and (max-width:1000px) {
+
+        .box1,
+        .box {
+            width: auto;
+        }
+    }
+
+    .ima {
+        float: right;
+        position: relative;
+    }
+
+    /*----------------------*/
+    /*footer  */
+    footer {
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        background: #111;
+    }
+
+    footer .bottom {
+        width: 100%;
+        text-align: center;
+        color: #d9d9d9;
+        padding: 0 40px 5px 0;
+    }
+
+    footer .bottom a {
+        color: #eb2f06;
+    }
+
+    footer a {
+        transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+        color: #eb2f06;
+    }
+
+    @media (max-width:560px) {
+        footer {
+            position: relative;
+        }
+    }
+
+    p {
+        text-indent: 80px;
+        line-height: 1.5;
+        color: rgb(8, 8, 8);
+        font-size: 25px;
+        font-weight: bold;
+        text-align: justify;
+        font-family: 'Grape Nuts', cursive;
+        margin: 2%;
+    }
+
+    img {
+        margin: 1%;
+    }
+</style>
+
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="index.html" class="active">Home</a>
+        <a  id="monlink"></a>
+        <a  id="conlink"></a>
+        <a  id="yieldlink"></a>
+        <a id="userlink" style="float: right;"></a>
+        <a id="signoutlink" style="float: right;"></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    <div class="bg">
+        <img class="back" src="https://www.atlantagardeningforum.com/wp-content/uploads/2016/10/maxresdefault-189.jpg">
+        <div class="text1">FUSCHIA</div>
+        <div class="text">Functionally Controlled Hydroponic System In Agriculture</div>
+    </div>
+
+    <center>
+        <div class="box">
+            <img src="https://www.fairobserver.com/wp-content/uploads/2021/07/vertical-Farming-1200x1200.jpg"
+                width="300px" height="300px">
+            <p>
+                Hydroponics is a type of hydroculture in which plants are cultivated without soil using a water solvent
+                containing mineral and fertilizer solutions.
+                Terrestrial plants can be grown only with their roots, with the roots exposed to the nutritive liquid,
+                or with
+                the roots physically supported by a media
+                such as gravel.
+            </p>
+        </div>
+        <div class="box1">
+            <p>
+            <p>
+                Hydroponic farms offer a pathway towards a more sustainable food ethic that prioritizes the health of
+                our food,
+                bodies and environment without the heavy
+                use of chemicals. Far from being a pipe-dream, hydroponic farming is already being rapidly integrated
+                into
+                current food networks.
+            </p>
+            <img src="https://www.karnataka.com/wp-content/uploads/2020/05/greenhouse-2139526_640.jpg" width="300px"
+                height="300px" class="ima">
+            </p>
+        </div>
+        <div class="box">
+            <img src="https://en-media.thebetterindia.com/uploads/2019/12/shutterstock_509214613.jpg?compress=true&quality=95&w=360&dpr=2.6"
+                width="300px" height="300px">
+            <p>
+                Plants grown in hydroponic systems grow 30% to 50% faster than those grown in soil.Crops grow faster in
+                hydroponic systems because they receive an ideal
+                amount of nutrients and, if grown indoors, have less environmentally induced stress (like weather and
+                pests).Some species are faster than others. For example,
+                leafy greens like lettuce and thirsty fruits like tomatoes tend to grow faster in hydroponic systems.
+            </p>
+        </div>
+    </center>
+    <div>
+        <footer>
+            <div class="bottom">
+                Copyright © 2022 <a href="index.html">FUSCHIA</a> All rights reserved
+            </div>
+        </footer>
+    </div>
+    <script src="detail.js"></script>
+</body>
+
+</html>

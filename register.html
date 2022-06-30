@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Jost', sans-serif;
+        background-image: url("https://i.pinimg.com/564x/cd/59/96/cd599629ab5c6ad0fdbaba54318a6b25.jpg");
+    }
+
+    .signup {
+        background-image: url("https://i.pinimg.com/564x/bb/5f/c1/bb5fc16d578d4ee7e9de9cc80d46b135.jpg");
+        width: 300px;
+        height: 400px;
+        padding: 50px;
+        margin: 20px;
+        justify-content: center;
+        box-shadow: 3px 10px 30px 5px #8b8b88;
+        border-radius:  20px 100px 20px 20px;
+    }
+
+    input {
+        font-size: 130%;
+        font-family: 'Times New Roman', Times, serif;
+        margin-bottom: 10%;
+        border: 0px;
+        border-radius: 0px 20px 2px 10px;
+    }
+
+    label {
+        font-size: 300%;
+        font-family: 'Times New Roman', Times, serif;
+        color: rgb(255, 255, 255);
+        justify-content: center;
+        display: flex;
+        margin: 30px;
+        font-weight: 900;
+    }
+
+    button {
+        width: 60%;
+        height: 40px;
+        margin: 10px auto;
+        justify-content: center;
+        display: block;
+        color: #fff;
+        background: #6cb150;
+        font-size: 22px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        transition: .2s ease-in;
+        cursor: pointer;
+    }
+    button:hover {
+		background: rgb(74, 99, 48);
+	}
+    p, a{
+        color: rgb(178, 195, 211);
+        font-size: 15px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    
+</style>
+<body>
+    
+
+    <div class="signup">
+        <center><label>SIGN UP!</label>
+        <input type="text" id="semail" placeholder="Email">
+        <input type="text" id="sname" placeholder="Username">
+        <input type="password" id="spwd" placeholder="Password">
+         <button id="sub_btn">Sign up</button>
+         <p>For <a href="login.html">LOGIN</a> click here! </p>
+    </center>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFXRlahqsia6qPBNkcBlzBNAjyWBvW2aA",
+            authDomain: "epics-5ffd2.firebaseapp.com",
+            databaseURL: "https://epics-5ffd2-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "epics-5ffd2",
+            storageBucket: "epics-5ffd2.appspot.com",
+            messagingSenderId: "266100996512",
+            appId: "1:266100996512:web:866fd38ee3db75ee930cc5",
+            measurementId: "G-NNBG2K82P1"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+        const db = getDatabase();
+
+        // signup refrences
+
+        const email = document.getElementById('semail');
+        const username = document.getElementById('sname');
+        const pass = document.getElementById('spwd');
+        const submit = document.getElementById('sub_btn');
+
+        //validation
+        function isEMptyOrSapce(str){
+            return str == null || str.match(/^ *$/) !== null;
+        }
+
+        function Validation() {
+            let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|vitbhopal.ac.in)\.com$/;
+            let userregex = /^[a-zA-Z0-9]{5,}$/;
+            //let passwordregex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$/;
+
+            if(isEMptyOrSapce(email.value) || isEMptyOrSapce(username.value) || isEMptyOrSapce(pass.value)){
+                alert("Fill all the fields! ");
+                return false;
+            }
+           if (!emailregex.test(email.value)) {
+                alert("Invalid email");
+                return false;
+            }
+
+            if (!userregex.test(username.value)) {
+                alert("Username should be alphanumeric");
+                return false;
+            }
+
+          //  if (!passwordregex.test(pass.value)) {
+               // alert("It should contains at least 8 characters, one digit, one uppercase and lowercase alphabet, one special character without any space");
+               // return false;
+            //}
+
+            return true;
+        }
+
+        //register user
+        function RegisterUser() {
+            if (!Validation()) {
+                return;
+            };
+            const dbRef = ref(db);
+
+            get(child(dbRef, "Userlist/" + username.value)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    alert("Account already exists");
+                }
+
+                else {
+                    set(ref(db, "Userlist/" + username.value),
+                        {
+                            Email: email.value,
+                            Username: username.value,
+                            Password: encPass()
+                        })
+                        .then(() => {
+                            alert("Registration done successfully");
+                        })
+                        .catch((error) => {
+                            alert("error" + error);
+                        })
+                }
+            });
+        }
+
+        //encryption
+        function encPass() {
+            var pass1 = CryptoJS.AES.encrypt(pass.value, pass.value);
+            return pass1.toString();
+        }
+        
+        //assign event
+        submit.addEventListener('click', RegisterUser);
+    </script>
+</body>
+
+</html>

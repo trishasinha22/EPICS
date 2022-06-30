@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gideon+Roman&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Source+Serif+Pro:ital,wght@1,600&display=swap"
+        rel="stylesheet">
+    <title>Monitor</title>
+    <style>
+        /*nav bar */
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+            margin-bottom: 2%;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .topnav .icon {
+            display: none;
+        }
+
+        @media screen and (max-width: 600px) {
+            .topnav a:not(:first-child) {
+                display: none;
+            }
+
+            .topnav a.icon {
+                float: right;
+                display: block;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .topnav.responsive {
+                position: relative;
+            }
+
+            .topnav.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+
+        /*-----------------*/
+
+        body {
+            background-image: url(https://cutewallpaper.org/22/green-leaf-aesthetic-wallpapers/1667722022.jpg);
+            background-size: cover;
+            margin: 0%;
+            font-family: 'Gideon Roman', cursive;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*footer  */
+        footer {
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            margin-top: 24%;
+            background: #111;
+        }
+
+        footer .bottom {
+            width: 100%;
+            text-align: center;
+            color: #d9d9d9;
+            padding: 0 40px 5px 0;
+        }
+
+        footer .bottom a {
+            color: #eb2f06;
+        }
+
+        footer a {
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #eb2f06;
+        }
+
+        @media (max-width:560px) {
+            footer {
+                position: relative;
+            }
+        }
+
+
+        th {
+            background-color: transparent;
+            font-size: 200%;
+            height: 90px;
+            text-decoration: solid;
+            color: rgb(255, 255, 255);
+            font-family: 'Gideon Roman', cursive;
+            font-family: 'Source Serif Pro', serif;
+            text-align: center;
+            width: 3%;
+        }
+
+        #tbody1 {
+            background-color: transparent;
+            font-size: 200%;
+            height: 90px;
+            text-decoration: solid;
+            color: rgb(255, 255, 255);
+            font-family: 'Gideon Roman', cursive;
+            font-family: 'Source Serif Pro', serif;
+            text-align: center;
+            width: 3%;
+
+        }
+
+        .monitor {
+            background-color: rgba(51, 51, 51, 0.652);
+            margin: 0px;
+            width: 100%;
+            height: auto;
+            padding: 50px;
+            box-shadow: 3px 10px 30px 5px #bcbcb9a5;
+            border-radius: 20px 20px 20px 20px;
+            margin: auto;
+            padding: 10px;
+        }
+
+        #devid {
+            font-size: 150%;
+            margin-left: 20%;
+            font-family: 'Gideon Roman', cursive;
+            font-family: 'Source Serif Pro', serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="index.html">Home</a>
+        <a href="monitor.html" class="active">Monitor</a>
+        <a href="control.html">Control</a>
+        <a href="predict.html">Yield Prediction</a>
+        <a id="userlink" style="float: right;"></a>
+        <a id="signoutlink" style="float: right;"></a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    <div class="monitor">
+        <center>
+            <table>
+                <thead class="col">
+                    <th>S NO.</th>
+                    <th>Temperature</th>
+                    <th>Humidity</th>
+                    <th>pH Value</th>
+                    <th>Flow</th>
+                    <th>LUX</th>
+                    <th>Pump</th>
+                </thead>
+                <tbody id="tbody1"></tbody>
+            </table>
+        </center>
+    </div>
+    <footer>
+        <div class="bottom">
+            <p>Copyright © 2022 <a href="index.html">FUSCHIA</a> All rights reserved</p>
+        </div>
+    </footer>
+    <script type="module">
+        var stdNo = 0;
+        var tbody = document.getElementById('tbody1');
+
+        function additemtotable(temp, humid, ph, flow, lux, pump) {
+            let trow = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
+            let td5 = document.createElement("td");
+            let td6 = document.createElement("td");
+            let td7 = document.createElement("td");
+
+            td1.innerHTML = ++stdNo;
+            td2.innerHTML = temp;
+            td3.innerHTML = humid;
+            td4.innerHTML = ph;
+            td5.innerHTML = flow;
+            td6.innerHTML = lux;
+            td7.innerHTML = pump;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+            trow.appendChild(td6);
+            trow.appendChild(td7);
+
+            tbody.appendChild(trow);
+        }
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGCJiXLKRcxR5c9B3zVCn_zy0jMWCu7eU",
+            authDomain: "getalltb.firebaseapp.com",
+            databaseURL: "https://getalltb-default-rtdb.firebaseio.com",
+            projectId: "getalltb",
+            storageBucket: "getalltb.appspot.com",
+            messagingSenderId: "431020603773",
+            appId: "1:431020603773:web:9ba481efc3d1d257b8b414"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, ref, get, set, child, onValue }
+            from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+        const db = getDatabase();
+
+        function addallitem(thevalues) {
+            stdNo = 0;
+            tbody.innerHTML = " ";
+            thevalues.forEach(element => {
+                additemtotable(element.Temp, element.Humidity, element.Phvalue, element.Flow, element.Lux, element.Pump)
+            });
+        }
+
+        function getalldataonce() {
+            const dbRef = ref(db);
+            get(child(dbRef, "monitor"))
+                .then((snapshot) => {
+                    var values = [];
+
+                    snapshot.forEach(childSnapshot => {
+                        values.push(childSnapshot.val());
+                    });
+                    addallitem(values);
+                })
+        }
+
+        window.onload = getalldataonce;
+
+
+    </script>
+    <script src="detail.js"></script>
+</body>
+
+</html>
